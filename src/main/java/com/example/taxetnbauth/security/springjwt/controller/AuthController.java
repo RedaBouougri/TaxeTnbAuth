@@ -1,9 +1,7 @@
 package com.example.taxetnbauth.security.springjwt.controller;
 
 
-import com.example.taxetnbauth.security.springjwt.models.ERole;
-import com.example.taxetnbauth.security.springjwt.models.Role;
-import com.example.taxetnbauth.security.springjwt.models.User;
+import com.example.taxetnbauth.security.springjwt.models.*;
 import com.example.taxetnbauth.security.springjwt.payload.request.LoginRequest;
 import com.example.taxetnbauth.security.springjwt.payload.request.SignupRequest;
 import com.example.taxetnbauth.security.springjwt.payload.request.UpdateProfileRequest;
@@ -24,6 +22,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.util.HashSet;
@@ -41,6 +40,13 @@ import java.util.stream.Collectors;
 public class AuthController {
   @Autowired
   AuthenticationManager authenticationManager;
+
+  String uri = "http://localhost:8050/api/terain";
+
+
+  @Autowired
+  RestTemplate restTemplate;
+
 
   @Autowired
   UserRepository userRepository;
@@ -164,6 +170,8 @@ public class AuthController {
     // Save the updated user
     userRepository.save(currentUser);
 
+
+
     return ResponseEntity.ok(new MessageResponse("User profile updated successfully!"));
   }
 
@@ -225,6 +233,15 @@ public class AuthController {
 
     user.setRoles(roles);
     userRepository.save(user);
+
+    Redevable redevable = new Redevable();
+    redevable.setCin(user.getCin());
+    redevable.setPrenom(user.getFirstName());
+    redevable.setNom(user.getLastName());
+
+    String uri2 = "http://localhost:8050/api/redevable";
+
+    restTemplate.postForEntity(uri2 + "/save", redevable, Redevable.class);
 
     return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
   }
