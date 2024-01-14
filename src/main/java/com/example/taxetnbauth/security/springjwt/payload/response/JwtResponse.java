@@ -32,6 +32,7 @@ public class JwtResponse {
     this.firstName = firstName;
     this.lastName = lastName;
     this.roles = roles;
+
   }
 
   public String getAccessToken() {
