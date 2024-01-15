@@ -25,13 +25,14 @@ public class JwtResponse {
     this.roles = roles;
   }
 
-  public JwtResponse(String token, Long id, String username, String firstName, String lastName, List<String> roles) {
+  public JwtResponse(String token, Long id, String username, String firstName, String lastName, List<String> roles,String cin) {
     this.token = token;
     this.id = id;
     this.username = username;
     this.firstName = firstName;
     this.lastName = lastName;
     this.roles = roles;
+    this.cin = cin;
 
   }
 

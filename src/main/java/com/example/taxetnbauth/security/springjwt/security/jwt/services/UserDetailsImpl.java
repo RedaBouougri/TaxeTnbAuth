@@ -22,6 +22,10 @@ public class UserDetailsImpl implements UserDetails {
     private String firstName;
     private String lastName;
 
+    private String cin;
+
+
+
 
     //private String email;
 
@@ -30,12 +34,13 @@ public class UserDetailsImpl implements UserDetails {
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(Long id, String username, String firstName, String lastName, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserDetailsImpl(Long id, String username, String firstName, String lastName, String password,String cin, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
+        this.cin = cin;
         this.authorities = authorities;
     }
 
@@ -60,6 +65,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getFirstName(),
                 user.getLastName(),
                 user.getPassword(),
+                user.getCin(),
                 authorities);
     }
 
@@ -75,6 +81,14 @@ public class UserDetailsImpl implements UserDetails {
  /* public String getEmail() {
     return email;
   }*/
+
+    public String getCin() {
+        return cin;
+    }
+
+    public void setCin(String cin) {
+        this.cin = cin;
+    }
 
     public String getFirstName() {
         return firstName;
